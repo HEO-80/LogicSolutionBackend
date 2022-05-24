@@ -7336,11 +7336,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\david\\Desktop\\Projects\\LogicSolutions\\logicSolutionBackendProject\\LogicSolutionBackenProject\\LogicSolutionBackenProject\\LogicSolutionBackenProject.csproj",
+      "projectUniqueName": "C:\\Users\\david\\Desktop\\Projects\\LogicSolutions\\logicsolutionBackend\\logicsolutionbackend\\LogicSolutionBackenProject\\LogicSolutionBackenProject\\LogicSolutionBackenProject.csproj",
       "projectName": "LogicSolutionBackenProject",
-      "projectPath": "C:\\Users\\david\\Desktop\\Projects\\LogicSolutions\\logicSolutionBackendProject\\LogicSolutionBackenProject\\LogicSolutionBackenProject\\LogicSolutionBackenProject.csproj",
+      "projectPath": "C:\\Users\\david\\Desktop\\Projects\\LogicSolutions\\logicsolutionBackend\\logicsolutionbackend\\LogicSolutionBackenProject\\LogicSolutionBackenProject\\LogicSolutionBackenProject.csproj",
       "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\david\\Desktop\\Projects\\LogicSolutions\\logicSolutionBackendProject\\LogicSolutionBackenProject\\LogicSolutionBackenProject\\obj\\",
+      "outputPath": "C:\\Users\\david\\Desktop\\Projects\\LogicSolutions\\logicsolutionBackend\\logicsolutionbackend\\LogicSolutionBackenProject\\LogicSolutionBackenProject\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",
