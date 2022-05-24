@@ -16,7 +16,7 @@ namespace LogicSolutions.Models
 
         public int CantidadVehiculos { get; set; }
 
-        public string  Vehiculos { get; set; }
+        public string Vehiculos { get; set; }
 
 
     }

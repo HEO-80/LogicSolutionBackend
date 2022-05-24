@@ -84,6 +84,11 @@ namespace LogicSolutionBackenProject.Controllers
             return CreatedAtAction("GetVehiculo", new { id = vehiculo.Id }, vehiculo);
         }
 
+
+
+
+
+
         // DELETE: api/Vehiculos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVehiculo(int id)
