@@ -45,7 +45,7 @@ namespace LogicSolutionBackenProject.Controllers
         // PUT: api/Flotas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFlota(string id, Flota flota)
+        public async Task<IActionResult> PutFlota(int id, Flota flota)
         {
             if (id != flota.Id)
             {
@@ -114,9 +114,11 @@ namespace LogicSolutionBackenProject.Controllers
             return NoContent();
         }
 
-        private bool FlotaExists(string id)
+        private bool FlotaExists(int id)
         {
             return _context.flotas.Any(e => e.Id == id);
+            
+
         }
     }
 }
