@@ -12,23 +12,23 @@ namespace LogicSolutionBackenProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ContactoesController : ControllerBase
+    public class ContactosController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public ContactoesController(ApplicationDbContext context)
+        public ContactosController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Contactoes
+        // GET: api/Contactos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Contacto>>> Getcontactos()
         {
             return await _context.contactos.ToListAsync();
         }
 
-        // GET: api/Contactoes/5
+        // GET: api/Contactos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Contacto>> GetContacto(int id)
         {
@@ -42,7 +42,7 @@ namespace LogicSolutionBackenProject.Controllers
             return contacto;
         }
 
-        // PUT: api/Contactoes/5
+        // PUT: api/Contactos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutContacto(int id, Contacto contacto)
@@ -73,7 +73,7 @@ namespace LogicSolutionBackenProject.Controllers
             return NoContent();
         }
 
-        // POST: api/Contactoes
+        // POST: api/Contactos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Contacto>> PostContacto(Contacto contacto)
@@ -84,7 +84,7 @@ namespace LogicSolutionBackenProject.Controllers
             return CreatedAtAction("GetContacto", new { id = contacto.Id }, contacto);
         }
 
-        // DELETE: api/Contactoes/5
+        // DELETE: api/Contactos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteContacto(int id)
         {

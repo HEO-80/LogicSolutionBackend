@@ -12,23 +12,23 @@ namespace LogicSolutionBackenProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VehiculoesController : ControllerBase
+    public class VehiculosController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public VehiculoesController(ApplicationDbContext context)
+        public VehiculosController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Vehiculoes
+        // GET: api/Vehiculos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Vehiculo>>> Getvehiculos()
         {
             return await _context.vehiculos.ToListAsync();
         }
 
-        // GET: api/Vehiculoes/5
+        // GET: api/Vehiculos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Vehiculo>> GetVehiculo(int id)
         {
@@ -42,7 +42,7 @@ namespace LogicSolutionBackenProject.Controllers
             return vehiculo;
         }
 
-        // PUT: api/Vehiculoes/5
+        // PUT: api/Vehiculos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutVehiculo(int id, Vehiculo vehiculo)
@@ -73,7 +73,7 @@ namespace LogicSolutionBackenProject.Controllers
             return NoContent();
         }
 
-        // POST: api/Vehiculoes
+        // POST: api/Vehiculos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Vehiculo>> PostVehiculo(Vehiculo vehiculo)
@@ -84,7 +84,7 @@ namespace LogicSolutionBackenProject.Controllers
             return CreatedAtAction("GetVehiculo", new { id = vehiculo.Id }, vehiculo);
         }
 
-        // DELETE: api/Vehiculoes/5
+        // DELETE: api/Vehiculos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVehiculo(int id)
         {

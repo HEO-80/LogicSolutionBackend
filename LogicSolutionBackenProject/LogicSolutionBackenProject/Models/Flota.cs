@@ -8,7 +8,7 @@ namespace LogicSolutions.Models
     public class Flota
     {
 
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string NombreFlota { get; set; }
 
