@@ -1,12 +1,11 @@
-﻿using System;
+﻿using LogicSolutionBackenProject.Dtos;
+using LogicSolutions.Data;
+using LogicSolutions.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using LogicSolutions.Data;
-using LogicSolutions.Models;
 
 namespace LogicSolutionBackenProject.Controllers
 {
@@ -25,7 +24,39 @@ namespace LogicSolutionBackenProject.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Flota>>> Getflotas()
         {
-            return await _context.flotas.ToListAsync();
+            var flotas = await _context.flotas.ToListAsync();
+
+            var flotasDto = new List<FlotaDto>();
+
+            foreach (var flota in flotas)
+            {
+                flotasDto.Add(new FlotaDto
+                {
+                    Id = flota.Id,
+                    NombreFlota = flota.NombreFlota,
+                    TipoDeCarga = flota.TipoDeCarga,
+                    CantidadVehiculos = flota.CantidadVehiculos,
+                    Vehiculos = await _context.vehiculos
+                    .Where(v => v.FlotaId == flota.Id)
+                    .ToListAsync(),
+                });
+            }
+
+            var flotasDtoSelect = flotas
+                .Select(f => new FlotaDto
+                {
+                    Id = f.Id,
+                    NombreFlota = f.NombreFlota,
+                    TipoDeCarga = f.TipoDeCarga,
+                    CantidadVehiculos = f.CantidadVehiculos,
+                    Vehiculos = _context.vehiculos
+                    .Where(v => v.FlotaId == f.Id)
+                    .ToList()
+                });
+
+            //SELECT Name, Surname from USERS
+
+            return flotasDto;
         }
 
         // GET: api/Flotas/5
@@ -103,6 +134,7 @@ namespace LogicSolutionBackenProject.Controllers
         public async Task<IActionResult> DeleteFlota(string id)
         {
             var flota = await _context.flotas.FindAsync(id);
+
             if (flota == null)
             {
                 return NotFound();
@@ -117,7 +149,7 @@ namespace LogicSolutionBackenProject.Controllers
         private bool FlotaExists(int id)
         {
             return _context.flotas.Any(e => e.Id == id);
-            
+
 
         }
     }

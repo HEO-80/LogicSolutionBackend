@@ -4,47 +4,22 @@ using LogicSolutions.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LogicSolutionBackenProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220525083412_AddedFKToFlotas")]
+    partial class AddedFKToFlotas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("LogicSolutionBackenProject.Models.Map", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Lat")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Long")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VehiculoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VehiculoId")
-                        .IsUnique();
-
-                    b.ToTable("maps");
-                });
 
             modelBuilder.Entity("LogicSolutions.Models.Contacto", b =>
                 {
@@ -138,21 +113,10 @@ namespace LogicSolutionBackenProject.Migrations
                     b.ToTable("vehiculos");
                 });
 
-            modelBuilder.Entity("LogicSolutionBackenProject.Models.Map", b =>
-                {
-                    b.HasOne("LogicSolutions.Models.Vehiculo", "Vehiculo")
-                        .WithOne("Map")
-                        .HasForeignKey("LogicSolutionBackenProject.Models.Map", "VehiculoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Vehiculo");
-                });
-
             modelBuilder.Entity("LogicSolutions.Models.Vehiculo", b =>
                 {
                     b.HasOne("LogicSolutions.Models.Flota", "Flota")
-                        .WithMany()
+                        .WithMany("Vehiculos")
                         .HasForeignKey("FlotaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -160,9 +124,9 @@ namespace LogicSolutionBackenProject.Migrations
                     b.Navigation("Flota");
                 });
 
-            modelBuilder.Entity("LogicSolutions.Models.Vehiculo", b =>
+            modelBuilder.Entity("LogicSolutions.Models.Flota", b =>
                 {
-                    b.Navigation("Map");
+                    b.Navigation("Vehiculos");
                 });
 #pragma warning restore 612, 618
         }

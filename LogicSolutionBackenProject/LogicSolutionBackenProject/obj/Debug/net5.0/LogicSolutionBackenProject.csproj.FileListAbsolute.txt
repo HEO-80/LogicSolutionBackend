@@ -266,3 +266,4 @@ C:\Users\david\Desktop\Projects\LogicSolutions\logicsolutionBackend\logicsolutio
 C:\Users\david\Desktop\Projects\LogicSolutions\logicsolutionBackend\logicsolutionbackend\LogicSolutionBackenProject\LogicSolutionBackenProject\obj\Debug\net5.0\LogicSolutionBackenProject.pdb
 C:\Users\david\Desktop\Projects\LogicSolutions\logicsolutionBackend\logicsolutionbackend\LogicSolutionBackenProject\LogicSolutionBackenProject\obj\Debug\net5.0\LogicSolutionBackenProject.genruntimeconfig.cache
 C:\Users\david\Desktop\Projects\LogicSolutions\logicsolutionBackend\logicsolutionbackend\LogicSolutionBackenProject\LogicSolutionBackenProject\obj\Debug\net5.0\ref\LogicSolutionBackenProject.dll
+C:\Users\david\Desktop\Projects\LogicSolutions\logicsolutionBackend\logicsolutionbackend\LogicSolutionBackenProject\LogicSolutionBackenProject\bin\Debug\net5.0\AutoMapper.dll

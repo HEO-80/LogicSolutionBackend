@@ -7,6 +7,7 @@ using System.Text;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using LogicSolutionBackenProject.Models;
 
 namespace LogicSolutions.Data
 {
@@ -17,13 +18,20 @@ namespace LogicSolutions.Data
 
         }
 
-        
 
             public DbSet<Flota> flotas { get; set; }
             public DbSet<Vehiculo> vehiculos { get; set; }
-
             public DbSet<Contacto> contactos { get; set; }
+            public DbSet<Map> maps { get; set; }
 
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Vehiculo>()
+                .HasOne(v => v.Map)
+                .WithOne(m => m.Vehiculo)
+                .HasForeignKey<Map>(m => m.VehiculoId);
+        }
 
     }
 }

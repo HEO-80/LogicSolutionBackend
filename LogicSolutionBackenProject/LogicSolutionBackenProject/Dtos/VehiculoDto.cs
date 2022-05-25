@@ -1,9 +1,12 @@
-﻿using System;
+﻿using LogicSolutionBackenProject.Dtos;
+using LogicSolutions.Models;
+using System;
+using System.Collections.Generic;
 
 namespace LogicSolutionBackenProject.Models
 {
-    public class VehiculoDto
-    {
+    public class VehiculoDto 
+    { 
 
         public int Id { get; set; }
 
@@ -17,7 +20,11 @@ namespace LogicSolutionBackenProject.Models
 
         public string Carga { get; set; }
 
-        public string [] flota { get; set; }
+        //public int [] Flotas { get; set; }
+        public int FlotaId { get; set; }
+
+        public List<MapDto> Maps { get; set; }
+
 
     }
 }

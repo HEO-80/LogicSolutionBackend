@@ -1,12 +1,13 @@
-﻿using System;
+﻿using AutoMapper;
+using LogicSolutionBackenProject.Dtos;
+using LogicSolutionBackenProject.Models;
+using LogicSolutions.Data;
+using LogicSolutions.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using LogicSolutions.Data;
-using LogicSolutions.Models;
 
 namespace LogicSolutionBackenProject.Controllers
 {
@@ -23,9 +24,37 @@ namespace LogicSolutionBackenProject.Controllers
 
         // GET: api/Vehiculos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Vehiculo>>> Getvehiculos()
+        public async Task<ActionResult<IEnumerable<VehiculoDto>>> Getvehiculos()
+
         {
-            return await _context.vehiculos.ToListAsync();
+            var vehicles = await _context.vehiculos.ToListAsync();
+
+            var vehiclesDto = vehicles
+                .Select(v => new VehiculoDto
+                {
+                    Id = v.Id,
+                    Nombre = v.Nombre,
+                    Tipo = v.Tipo,
+                    FechaRegistro = v.FechaRegistro,
+                    Itv = v.Itv,
+                    Carga = v.Carga,
+                    FlotaId = v.FlotaId,
+                    Maps = _context.maps
+                                .Where(m => m.VehiculoId == v.Id)
+                                .Select(m => new MapDto
+                                {
+                                    Id = m.Id,
+                                    Name = m.Name,
+                                    Lat = m.Lat,
+                                    Long = m.Long,
+                                    VehiculoId = m.VehiculoId
+                                })
+                                .ToList()
+                })
+                .ToList();
+
+            return vehiclesDto;
+
         }
 
         // GET: api/Vehiculos/5
@@ -76,12 +105,55 @@ namespace LogicSolutionBackenProject.Controllers
         // POST: api/Vehiculos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Vehiculo>> PostVehiculo(Vehiculo vehiculo)
+        public async Task<ActionResult<VehiculoDto>> PostVehiculo(VehiculoDto vehiculo)
         {
-            _context.vehiculos.Add(vehiculo);
+            var dbvehicle = new Vehiculo
+
+            {
+                Nombre = vehiculo.Nombre,
+                Tipo = vehiculo.Tipo,
+                FechaRegistro = vehiculo.FechaRegistro,
+                Itv = vehiculo.Itv,
+                Carga = vehiculo.Carga,
+                FlotaId = vehiculo.FlotaId,
+
+            };
+
+            await _context.AddAsync(dbvehicle);
+
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetVehiculo", new { id = vehiculo.Id }, vehiculo);
+            // By default Id=0, but when all the changes are confirmed .NET changes the Id property to the one assigned by the SQL Server
+            //if (dbvehicle.Id!=0 )
+            //{
+            //    foreach (var flota in vehiculo.Flotas)
+            //    {
+            //       await _context.AddAsync(dbvehicle);
+            //    }
+            //}
+
+            //else
+
+            //{
+            //    return null;
+            //}
+
+            //var generatedVehiculo = await _context.vehiculos.FindAsync(vehiculo.Id);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Vehiculo, VehiculoDto>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            return mapper.Map<VehiculoDto>(dbvehicle);
+
+            //_context.vehiculos.Add(vehiculo);
+
+            //await _context.SaveChangesAsync();
+
+            //return CreatedAtAction("GetVehiculo", new { id = vehiculo.Id }, vehiculo);
         }
 
 

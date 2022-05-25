@@ -1,5 +1,8 @@
-﻿using System;
+﻿using LogicSolutionBackenProject.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,7 +11,7 @@ namespace LogicSolutions.Models
     public class Vehiculo
     {
 
-
+        [Key]
         public int Id { get; set; }
 
         public string Nombre { get; set; }
@@ -25,7 +28,16 @@ namespace LogicSolutions.Models
 
         public double KmRecorridos { get; set; }
 
-       
+        public int FlotaId { get; set; }
+
+        public Flota Flota { get; set; }
+
+        public Map Map { get; set; }
+
+
+
+
+
 
     }
 }
