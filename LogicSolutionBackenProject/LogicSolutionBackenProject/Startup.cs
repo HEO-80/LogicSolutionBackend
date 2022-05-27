@@ -27,8 +27,11 @@ namespace LogicSolutionBackenProject
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services
-                .AddControllers();
+            services.AddCors(options => options.AddPolicy("AllowWebApp",
+                builder => builder.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyOrigin()));
+            services.AddControllers();
 
             services.AddSwaggerGen(c =>
             {
@@ -48,7 +51,7 @@ namespace LogicSolutionBackenProject
 
             app.UseHttpsRedirection();
 
-
+            app.UseCors("AllowWebApp");
             app.UseRouting();
 
             app.UseAuthorization();

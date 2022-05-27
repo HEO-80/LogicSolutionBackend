@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LogicSolutions.Models
@@ -16,9 +18,8 @@ namespace LogicSolutions.Models
 
         public int CantidadVehiculos { get; set; }
 
-        //public virtual List<Vehiculo> Vehiculos { get; set; }
-
-
+        [NotMapped]
+        public List<Vehiculo>  Vehiculos { get; set; }
     }
 
 

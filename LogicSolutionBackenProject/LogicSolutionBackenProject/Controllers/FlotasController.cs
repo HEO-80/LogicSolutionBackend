@@ -26,37 +26,12 @@ namespace LogicSolutionBackenProject.Controllers
         {
             var flotas = await _context.flotas.ToListAsync();
 
-            var flotasDto = new List<FlotaDto>();
-
             foreach (var flota in flotas)
             {
-                flotasDto.Add(new FlotaDto
-                {
-                    Id = flota.Id,
-                    NombreFlota = flota.NombreFlota,
-                    TipoDeCarga = flota.TipoDeCarga,
-                    CantidadVehiculos = flota.CantidadVehiculos,
-                    Vehiculos = await _context.vehiculos
-                    .Where(v => v.FlotaId == flota.Id)
-                    .ToListAsync(),
-                });
+                flota.Vehiculos = await _context.vehiculos.Where(v => v.flota.Id == flota.Id).ToListAsync();
             }
 
-            var flotasDtoSelect = flotas
-                .Select(f => new FlotaDto
-                {
-                    Id = f.Id,
-                    NombreFlota = f.NombreFlota,
-                    TipoDeCarga = f.TipoDeCarga,
-                    CantidadVehiculos = f.CantidadVehiculos,
-                    Vehiculos = _context.vehiculos
-                    .Where(v => v.FlotaId == f.Id)
-                    .ToList()
-                });
-
-            //SELECT Name, Surname from USERS
-
-            return flotasDto;
+            return flotas;
         }
 
         // GET: api/Flotas/5
