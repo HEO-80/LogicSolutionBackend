@@ -21,7 +21,6 @@ namespace LogicSolutions.Data
 
             public DbSet<Flota> flotas { get; set; }
             public DbSet<Vehiculo> vehiculos { get; set; }
-
             public DbSet<Contacto> contactos { get; set; }
 
 

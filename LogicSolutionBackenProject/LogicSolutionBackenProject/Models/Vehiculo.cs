@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LogicSolutions.Models
@@ -25,6 +26,7 @@ namespace LogicSolutions.Models
 
         public double KmRecorridos { get; set; }
 
+        [JsonIgnore]
         public Flota flota { get; set; }
 
 

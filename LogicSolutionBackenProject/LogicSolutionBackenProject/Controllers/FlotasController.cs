@@ -1,12 +1,10 @@
-﻿using System;
+﻿using LogicSolutions.Data;
+using LogicSolutions.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using LogicSolutions.Data;
-using LogicSolutions.Models;
 
 namespace LogicSolutionBackenProject.Controllers
 {
@@ -25,7 +23,14 @@ namespace LogicSolutionBackenProject.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Flota>>> Getflotas()
         {
-            return await _context.flotas.ToListAsync();
+            var flotas = await _context.flotas.ToListAsync();
+
+            foreach (var flota in flotas)
+            {
+                flota.Vehiculos = await _context.vehiculos.Where(v => v.flota.Id == flota.Id).ToListAsync();
+            }
+
+            return flotas;
         }
 
         // GET: api/Flotas/5
@@ -117,7 +122,7 @@ namespace LogicSolutionBackenProject.Controllers
         private bool FlotaExists(int id)
         {
             return _context.flotas.Any(e => e.Id == id);
-            
+
 
         }
     }
