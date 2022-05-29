@@ -27,10 +27,10 @@ namespace LogicSolutions.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Vehiculo>()
-                .HasOne(v => v.Map)
-                .WithOne(m => m.Vehiculo)
-                .HasForeignKey<Map>(m => m.VehiculoId);
+            //modelBuilder.Entity<Vehiculo>()
+            //    .HasOne(v => v.Map)
+            //    .WithOne(m => m.Vehiculo)
+            //    .HasForeignKey<Map>(m => m.VehiculoId);
         }
 
     }
