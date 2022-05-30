@@ -32,6 +32,7 @@ namespace LogicSolutions.Models
         [JsonIgnore]
         public Flota flota { get; set; }
 
+        public Map map { get; set; }
 
     }
 }

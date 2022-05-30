@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "E:\\CURSOS\\DAW2 SAN VALERO\\PROYECTO CURSO\\1 .NET BACKEND\\LogicSolutionBackend\\LogicSolutionBackenProject\\LogicSolutionBackenProject\\LogicSolutionBackenProject.csproj": {}
+    "C:\\Users\\david\\Desktop\\Projects\\LogicSolutions\\logicsolutionBackend\\logicsolutionbackend\\LogicSolutionBackenProject\\LogicSolutionBackenProject\\LogicSolutionBackenProject.csproj": {}
   },
   "projects": {
-    "E:\\CURSOS\\DAW2 SAN VALERO\\PROYECTO CURSO\\1 .NET BACKEND\\LogicSolutionBackend\\LogicSolutionBackenProject\\LogicSolutionBackenProject\\LogicSolutionBackenProject.csproj": {
+    "C:\\Users\\david\\Desktop\\Projects\\LogicSolutions\\logicsolutionBackend\\logicsolutionbackend\\LogicSolutionBackenProject\\LogicSolutionBackenProject\\LogicSolutionBackenProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\CURSOS\\DAW2 SAN VALERO\\PROYECTO CURSO\\1 .NET BACKEND\\LogicSolutionBackend\\LogicSolutionBackenProject\\LogicSolutionBackenProject\\LogicSolutionBackenProject.csproj",
+        "projectUniqueName": "C:\\Users\\david\\Desktop\\Projects\\LogicSolutions\\logicsolutionBackend\\logicsolutionbackend\\LogicSolutionBackenProject\\LogicSolutionBackenProject\\LogicSolutionBackenProject.csproj",
         "projectName": "LogicSolutionBackenProject",
-        "projectPath": "E:\\CURSOS\\DAW2 SAN VALERO\\PROYECTO CURSO\\1 .NET BACKEND\\LogicSolutionBackend\\LogicSolutionBackenProject\\LogicSolutionBackenProject\\LogicSolutionBackenProject.csproj",
-        "packagesPath": "C:\\Users\\Heo\\.nuget\\packages\\",
-        "outputPath": "E:\\CURSOS\\DAW2 SAN VALERO\\PROYECTO CURSO\\1 .NET BACKEND\\LogicSolutionBackend\\LogicSolutionBackenProject\\LogicSolutionBackenProject\\obj\\",
+        "projectPath": "C:\\Users\\david\\Desktop\\Projects\\LogicSolutions\\logicsolutionBackend\\logicsolutionbackend\\LogicSolutionBackenProject\\LogicSolutionBackenProject\\LogicSolutionBackenProject.csproj",
+        "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\david\\Desktop\\Projects\\LogicSolutions\\logicsolutionBackend\\logicsolutionbackend\\LogicSolutionBackenProject\\LogicSolutionBackenProject\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Heo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -93,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
