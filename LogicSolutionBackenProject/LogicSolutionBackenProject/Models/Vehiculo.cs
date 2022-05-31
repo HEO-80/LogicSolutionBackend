@@ -29,9 +29,12 @@ namespace LogicSolutions.Models
 
         public double KmRecorridos { get; set; }
 
+        public int? FlotaId { get; set; }
+
         [JsonIgnore]
         public Flota flota { get; set; }
 
+        public int? MapId { get; set; }
         public Map map { get; set; }
 
     }

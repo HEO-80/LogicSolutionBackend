@@ -21,9 +21,11 @@ namespace LogicSolutionBackenProject.Models
         public string Carga { get; set; }
 
         //public int [] Flotas { get; set; }
-        public int FlotaId { get; set; }
+        public int? FlotaId { get; set; }
 
         public List<MapDto> Maps { get; set; }
+
+        public int? mapId { get; set; }
 
 
     }

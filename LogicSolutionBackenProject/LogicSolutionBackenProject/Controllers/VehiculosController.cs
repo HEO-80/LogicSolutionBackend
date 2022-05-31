@@ -27,6 +27,7 @@ namespace LogicSolutionBackenProject.Controllers
         public async Task<ActionResult<IEnumerable<VehiculoDto>>> Getvehiculos()
 
         {
+            
             var vehicles = await _context.vehiculos.ToListAsync();
 
             var vehiclesDto = vehicles
@@ -38,7 +39,7 @@ namespace LogicSolutionBackenProject.Controllers
                     FechaRegistro = v.FechaRegistro,
                     Itv = v.Itv,
                     Carga = v.Carga,
-                    //FlotaId = v.FlotaId,
+                    FlotaId = v.FlotaId,
                     Maps = _context.maps
                                 .Where(m => m.VehiculoId == v.Id)
                                 .Select(m => new MapDto
@@ -115,7 +116,8 @@ namespace LogicSolutionBackenProject.Controllers
                 FechaRegistro = vehiculo.FechaRegistro,
                 Itv = vehiculo.Itv,
                 Carga = vehiculo.Carga,
-                //FlotaId = vehiculo.FlotaId,
+                FlotaId = vehiculo.FlotaId,
+                MapId = vehiculo.mapId
 
             };
 
