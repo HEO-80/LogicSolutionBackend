@@ -16,10 +16,10 @@ namespace LogicSolutions.Models
 
         public string TipoDeCarga { get; set; }
 
-        public int CantidadVehiculos { get; set; }
+        //public int CantidadVehiculos { get; set; }
 
-        [NotMapped]
-        public List<Vehiculo>  Vehiculos { get; set; }
+        //[NotMapped]
+        //public List<Vehiculo>  Vehiculos { get; set; }
     }
 
 

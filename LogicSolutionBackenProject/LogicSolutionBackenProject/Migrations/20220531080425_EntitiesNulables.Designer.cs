@@ -4,14 +4,16 @@ using LogicSolutions.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LogicSolutionBackenProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220531080425_EntitiesNulables")]
+    partial class EntitiesNulables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,6 +88,9 @@ namespace LogicSolutionBackenProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CantidadVehiculos")
+                        .HasColumnType("int");
+
                     b.Property<string>("NombreFlota")
                         .HasColumnType("nvarchar(max)");
 
@@ -110,11 +115,8 @@ namespace LogicSolutionBackenProject.Migrations
                     b.Property<string>("Docs")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("FechaRegistro")
+                    b.Property<DateTime>("FechaRegistro")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("FlotaId")
-                        .HasColumnType("int");
 
                     b.Property<int>("Itv")
                         .HasColumnType("int");
@@ -122,18 +124,18 @@ namespace LogicSolutionBackenProject.Migrations
                     b.Property<double>("KmRecorridos")
                         .HasColumnType("float");
 
-                    b.Property<int?>("MapId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tipo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("flotaId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("FlotaId");
+                    b.HasIndex("flotaId");
 
                     b.ToTable("vehiculos");
                 });
@@ -153,7 +155,7 @@ namespace LogicSolutionBackenProject.Migrations
                 {
                     b.HasOne("LogicSolutions.Models.Flota", "flota")
                         .WithMany()
-                        .HasForeignKey("FlotaId");
+                        .HasForeignKey("flotaId");
 
                     b.Navigation("flota");
                 });

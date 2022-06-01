@@ -30,7 +30,9 @@ namespace LogicSolutionBackenProject
             services.AddCors(options => options.AddPolicy("AllowWebApp",
                 builder => builder.AllowAnyOrigin()
                 .AllowAnyHeader()
+                .AllowAnyMethod()
                 .AllowAnyOrigin()));
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
@@ -49,7 +51,7 @@ namespace LogicSolutionBackenProject
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LogicSolutionBackenProject v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseCors("AllowWebApp");
             app.UseRouting();
