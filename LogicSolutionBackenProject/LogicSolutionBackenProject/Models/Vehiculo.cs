@@ -19,7 +19,7 @@ namespace LogicSolutions.Models
 
         public string Tipo { get; set; }
     
-        public DateTime FechaRegistro { get; set; }
+        public DateTime? FechaRegistro { get; set; }
 
         public int Itv { get; set; }
 

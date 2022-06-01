@@ -26,12 +26,25 @@ namespace LogicSolutionBackenProject.Controllers
         {
             var flotas = await _context.flotas.ToListAsync();
 
+            var flotasDto = new List<FlotaDto>();
+
             foreach (var flota in flotas)
             {
-                flota.Vehiculos = await _context.vehiculos.Where(v => v.flota.Id == flota.Id).ToListAsync();
+
+                var vehiculos=await _context.vehiculos.Where(v => v.flota.Id == flota.Id).ToListAsync();
+                var flotaDto = new FlotaDto
+                {
+                    Id = flota.Id,
+                    NombreFlota = flota.NombreFlota,
+                    TipoDeCarga = flota.TipoDeCarga,
+                    Vehiculos = vehiculos,
+                    CantidadVehiculos = vehiculos.Count()
+                };
+
+                flotasDto.Add(flotaDto);
             }
 
-            return flotas;
+            return flotasDto;
         }
 
         // GET: api/Flotas/5
@@ -106,7 +119,7 @@ namespace LogicSolutionBackenProject.Controllers
 
         // DELETE: api/Flotas/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFlota(string id)
+        public async Task<IActionResult> DeleteFlota(int id)
         {
             var flota = await _context.flotas.FindAsync(id);
 
@@ -118,7 +131,7 @@ namespace LogicSolutionBackenProject.Controllers
             _context.flotas.Remove(flota);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(flota);
         }
 
         private bool FlotaExists(int id)
