@@ -40,6 +40,8 @@ namespace LogicSolutionBackenProject.Controllers
                     Itv = v.Itv,
                     Carga = v.Carga,
                     FlotaId = v.FlotaId,
+                    Img = v.Img,
+                    Comentario = v.Comentario,
                     Maps = _context.maps
                                 .Where(m => m.VehiculoId == v.Id)
                                 .Select(m => new MapDto
@@ -117,6 +119,8 @@ namespace LogicSolutionBackenProject.Controllers
                 Itv = vehiculo.Itv,
                 Carga = vehiculo.Carga,
                 FlotaId = vehiculo.FlotaId,
+                Img = vehiculo.Img,
+                Comentario = vehiculo.Comentario,
                 MapId = vehiculo.mapId
 
             };

@@ -1,8 +1,10 @@
-﻿using LogicSolutionBackenProject.Dtos;
+﻿using AutoMapper;
+using LogicSolutionBackenProject.Dtos;
 using LogicSolutions.Data;
 using LogicSolutions.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,7 +33,7 @@ namespace LogicSolutionBackenProject.Controllers
             foreach (var flota in flotas)
             {
 
-                var vehiculos=await _context.vehiculos.Where(v => v.flota.Id == flota.Id).ToListAsync();
+                var vehiculos = await _context.vehiculos.Where(v => v.flota.Id == flota.Id).ToListAsync();
                 var flotaDto = new FlotaDto
                 {
                     Id = flota.Id,
@@ -49,47 +51,83 @@ namespace LogicSolutionBackenProject.Controllers
 
         // GET: api/Flotas/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Flota>> GetFlota(string id)
+        public async Task<ActionResult<FlotaDto>> GetFlota(int id)
         {
             var flota = await _context.flotas.FindAsync(id);
+
+            var vehiculos = await _context.vehiculos.Where(v => v.flota.Id == flota.Id).ToListAsync();
+
+            var flotaDto = new FlotaDto
+            {
+                Id = flota.Id,
+                NombreFlota = flota.NombreFlota,
+                TipoDeCarga = flota.TipoDeCarga,
+                CantidadVehiculos = vehiculos.Count(),
+                Vehiculos = vehiculos
+            };
 
             if (flota == null)
             {
                 return NotFound();
             }
 
-            return flota;
+            return flotaDto;
         }
 
         // PUT: api/Flotas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFlota(int id, Flota flota)
+        public async Task<FlotaDto> PutFlota(FlotaDto flotaDto)
         {
-            if (id != flota.Id)
+
+            var flotaDb = await _context.flotas.FirstOrDefaultAsync(f => f.Id == flotaDto.Id);
+
+
+            if (flotaDb == null) throw new Exception($"UserId [{flotaDto.Id}] does not exist.");
+
+
+            if (!string.IsNullOrEmpty(flotaDto.NombreFlota) && !string.IsNullOrWhiteSpace(flotaDto.NombreFlota))
             {
-                return BadRequest();
+                if (flotaDb.NombreFlota != flotaDto.NombreFlota)
+                {
+                    flotaDb.NombreFlota = flotaDto.NombreFlota;
+                }
             }
 
-            _context.Entry(flota).State = EntityState.Modified;
+            if (!string.IsNullOrEmpty(flotaDto.TipoDeCarga) && !string.IsNullOrWhiteSpace(flotaDto.TipoDeCarga))
+            {
+                if (flotaDb.TipoDeCarga != flotaDto.TipoDeCarga)
+                {
+                    flotaDb.TipoDeCarga = flotaDto.TipoDeCarga;
+                }
+            }
 
+            //var flotas = await _context.flotas.ToListAsync();
+
+            var config2 = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Flota, FlotaDto>();
+            });
+
+
+            var mapper2 = config2.CreateMapper();
+            var flotaUpdated = mapper2.Map<FlotaDto>(flotaDb);
+
+            //3. try GetUserId
             try
             {
+                //var appflota = flotas.FirstOrDefault(u => u.Id == flotaDb.Id);
+                //var uflotas = await _context.flotas.AddAsync(FlotaDto);
                 await _context.SaveChangesAsync();
+                //flotaO.Vehiculos = uflotas.ToArray();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!FlotaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw new Exception(@"idRole not found or wrong");
+
             }
 
-            return NoContent();
+            return flotaUpdated;
         }
 
         // POST: api/Flotas
