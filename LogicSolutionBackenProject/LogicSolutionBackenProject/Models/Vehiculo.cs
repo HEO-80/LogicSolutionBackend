@@ -17,6 +17,10 @@ namespace LogicSolutions.Models
 
         public string Nombre { get; set; }
 
+        public string Img { get; set; }
+
+        public string Comentario { get; set; }
+
         public string Tipo { get; set; }
     
         public DateTime? FechaRegistro { get; set; }
