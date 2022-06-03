@@ -32,7 +32,7 @@ namespace LogicSolutionBackenProject.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Map>> GetMap(int id)
         {
-            var map = await _context.maps.FindAsync(id);
+            var map = await _context.maps.FirstOrDefaultAsync(m=>m.VehiculoId==id);
 
             if (map == null)
             {
