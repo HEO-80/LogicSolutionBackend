@@ -5,6 +5,7 @@ using LogicSolutions.Data;
 using LogicSolutions.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -62,48 +63,164 @@ namespace LogicSolutionBackenProject.Controllers
 
         // GET: api/Vehiculos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Vehiculo>> GetVehiculo(int id)
+        public async Task<ActionResult<VehiculoDto>> GetVehiculo(int id)
         {
             var vehiculo = await _context.vehiculos.FindAsync(id);
+
+            var vehiculoDto = new VehiculoDto
+            {
+                Id = vehiculo.Id,
+                Nombre = vehiculo.Nombre,
+                Tipo = vehiculo.Tipo,
+                FechaRegistro = vehiculo.FechaRegistro,
+                Itv = vehiculo.Itv,
+                Carga = vehiculo.Carga,
+                FlotaId = vehiculo.FlotaId,
+                Img = vehiculo.Img,
+                Comentario = vehiculo.Comentario,
+                Maps = _context.maps
+                                .Where(m => m.VehiculoId == vehiculo.Id)
+                                .Select(m => new MapDto
+                                {
+                                    Id = m.Id,
+                                    Name = m.Name,
+                                    Lat = m.Lat,
+                                    Long = m.Long,
+                                    VehiculoId = m.VehiculoId
+                                })
+                                .ToList()
+            };
+
 
             if (vehiculo == null)
             {
                 return NotFound();
             }
 
-            return vehiculo;
+            return vehiculoDto;
         }
 
         // PUT: api/Vehiculos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutVehiculo(int id, Vehiculo vehiculo)
+        public async Task<VehiculoDto> PutVehiculo(VehiculoDto vehiculoDto)
         {
-            if (id != vehiculo.Id)
+
+
+            var vehiculoDb = await _context.vehiculos.FirstOrDefaultAsync(f => f.Id == vehiculoDto.Id);
+
+
+            if (vehiculoDb == null) throw new Exception($"UserId [{vehiculoDto.Id}] does not exist.");
+
+
+            if (!string.IsNullOrEmpty(vehiculoDto.Nombre) && !string.IsNullOrWhiteSpace(vehiculoDto.Nombre))
             {
-                return BadRequest();
+                if (vehiculoDb.Nombre != vehiculoDto.Nombre)
+                {
+                    vehiculoDb.Nombre = vehiculoDto.Nombre;
+                }
             }
 
-            _context.Entry(vehiculo).State = EntityState.Modified;
+            if (!string.IsNullOrEmpty(vehiculoDto.Img) && !string.IsNullOrWhiteSpace(vehiculoDto.Img))
+            {
+                if (vehiculoDb.Img != vehiculoDto.Img)
+                {
+                    vehiculoDb.Img = vehiculoDto.Img;
+                }
+            }
 
+            if (!string.IsNullOrEmpty(vehiculoDto.Tipo) && !string.IsNullOrWhiteSpace(vehiculoDto.Tipo))
+            {
+                if (vehiculoDb.Tipo != vehiculoDto.Tipo)
+                {
+                    vehiculoDb.Tipo = vehiculoDto.Tipo;
+                }
+            }
+
+               if (!string.IsNullOrEmpty(vehiculoDto.Carga) && !string.IsNullOrWhiteSpace(vehiculoDto.Carga))
+            {
+                if (vehiculoDb.Carga != vehiculoDto.Carga)
+                {
+                    vehiculoDb.Carga = vehiculoDto.Carga;
+                }
+            }
+
+                   if (!string.IsNullOrEmpty(vehiculoDto.Comentario) && !string.IsNullOrWhiteSpace(vehiculoDto.Comentario))
+            {
+                if (vehiculoDb.Comentario != vehiculoDto.Comentario)
+                {
+                    vehiculoDb.Comentario = vehiculoDto.Comentario;
+                }
+            }
+
+
+            if (vehiculoDto.FlotaId.HasValue)
+            {
+                if (vehiculoDb.FlotaId != vehiculoDto.FlotaId)
+                {
+                    vehiculoDb.FlotaId = vehiculoDto.FlotaId;
+                }
+            }
+
+            if (vehiculoDto.mapId.HasValue)
+            {
+                if (vehiculoDb.MapId != vehiculoDto.mapId)
+                {
+                    vehiculoDb.MapId = vehiculoDto.mapId;
+                }
+            }
+
+            //var flotas = await _context.flotas.ToListAsync();
+
+            var config2 = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Vehiculo, VehiculoDto>();
+            });
+
+
+            var mapper2 = config2.CreateMapper();
+            var vehiculoUpdated = mapper2.Map<VehiculoDto>(vehiculoDb);
+
+            //3. try 
             try
             {
+                
                 await _context.SaveChangesAsync();
+               
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!VehiculoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw new Exception(@"idRole not found or wrong");
+
             }
 
-            return NoContent();
+            return vehiculoUpdated;
         }
+        //    if (id != vehiculo.Id)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    _context.Entry(vehiculo).State = EntityState.Modified;
+
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!VehiculoExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return NoContent();
+        //}
 
         // POST: api/Vehiculos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
