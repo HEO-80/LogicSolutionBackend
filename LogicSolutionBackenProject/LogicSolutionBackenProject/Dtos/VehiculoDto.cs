@@ -24,6 +24,10 @@ namespace LogicSolutionBackenProject.Models
 
         public string Carga { get; set; }
 
+        public string Docs { get; set; }
+        
+        public int  Kmrecorridos { get; set; }
+
         //public int [] Flotas { get; set; }
         public int? FlotaId { get; set; }
 

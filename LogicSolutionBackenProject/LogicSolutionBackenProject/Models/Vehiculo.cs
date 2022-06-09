@@ -31,7 +31,7 @@ namespace LogicSolutions.Models
 
         public string Docs { get; set; }
 
-        public double KmRecorridos { get; set; }
+        public int KmRecorridos { get; set; }
 
         public int? FlotaId { get; set; }
 

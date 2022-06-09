@@ -29,11 +29,11 @@ namespace LogicSolutionBackenProject.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2");
 
-            //migrationBuilder.AddColumn<int>(
-            //    name: "MapId",
-            //    table: "vehiculos",
-            //    type: "int",
-            //    nullable: true);
+            migrationBuilder.AddColumn<int>(
+                name: "MapId",
+                table: "vehiculos",
+                type: "int",
+                nullable: true);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_vehiculos_flotas_FlotaId",

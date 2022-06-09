@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System.Text.Json.Serialization;
 
 namespace LogicSolutionBackenProject
 {
@@ -25,13 +24,13 @@ namespace LogicSolutionBackenProject
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("AwsProductionConnection")));
 
-            services.AddCors(options => options.AddPolicy("AllowWebApp",
-                builder => builder.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowAnyOrigin()));
+            //services.AddCors(options => options.AddPolicy("AllowWebApp",
+            //    builder => builder.AllowAnyOrigin()
+            //    .AllowAnyHeader()
+            //    .AllowAnyMethod()
+            //    .AllowAnyOrigin()));
 
             services.AddControllers();
 
@@ -39,6 +38,12 @@ namespace LogicSolutionBackenProject
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LogicSolutionBackenProject", Version = "v1" });
             });
+
+            services.AddCors(options => options.AddPolicy("AllowWebApp",
+                            builder => builder.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowAnyOrigin()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +58,16 @@ namespace LogicSolutionBackenProject
 
             //app.UseHttpsRedirection();
 
-            app.UseCors("AllowWebApp");
+            //app.UseDeveloperExceptionPage();
+
+            app.UseCors(builder =>
+            {
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
+
             app.UseRouting();
 
             app.UseAuthorization();
