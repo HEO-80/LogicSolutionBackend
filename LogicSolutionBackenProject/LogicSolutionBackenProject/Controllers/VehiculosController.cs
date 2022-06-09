@@ -28,7 +28,7 @@ namespace LogicSolutionBackenProject.Controllers
         public async Task<ActionResult<IEnumerable<VehiculoDto>>> Getvehiculos()
 
         {
-            
+
             var vehicles = await _context.vehiculos.ToListAsync();
 
             var vehiclesDto = vehicles
@@ -42,6 +42,8 @@ namespace LogicSolutionBackenProject.Controllers
                     Carga = v.Carga,
                     FlotaId = v.FlotaId,
                     Img = v.Img,
+                    Docs = v.Docs,
+                    Kmrecorridos = v.KmRecorridos,
                     Comentario = v.Comentario,
                     Maps = _context.maps
                                 .Where(m => m.VehiculoId == v.Id)
@@ -67,6 +69,12 @@ namespace LogicSolutionBackenProject.Controllers
         {
             var vehiculo = await _context.vehiculos.FindAsync(id);
 
+
+            if (vehiculo == null)
+            {
+                return NotFound();
+            }
+
             var vehiculoDto = new VehiculoDto
             {
                 Id = vehiculo.Id,
@@ -78,6 +86,8 @@ namespace LogicSolutionBackenProject.Controllers
                 FlotaId = vehiculo.FlotaId,
                 Img = vehiculo.Img,
                 Comentario = vehiculo.Comentario,
+                Docs = vehiculo.Docs,
+                Kmrecorridos = vehiculo.KmRecorridos,
                 Maps = _context.maps
                                 .Where(m => m.VehiculoId == vehiculo.Id)
                                 .Select(m => new MapDto
@@ -92,10 +102,7 @@ namespace LogicSolutionBackenProject.Controllers
             };
 
 
-            if (vehiculo == null)
-            {
-                return NotFound();
-            }
+
 
             return vehiculoDto;
         }
@@ -137,7 +144,7 @@ namespace LogicSolutionBackenProject.Controllers
                 }
             }
 
-               if (!string.IsNullOrEmpty(vehiculoDto.Carga) && !string.IsNullOrWhiteSpace(vehiculoDto.Carga))
+            if (!string.IsNullOrEmpty(vehiculoDto.Carga) && !string.IsNullOrWhiteSpace(vehiculoDto.Carga))
             {
                 if (vehiculoDb.Carga != vehiculoDto.Carga)
                 {
@@ -145,14 +152,28 @@ namespace LogicSolutionBackenProject.Controllers
                 }
             }
 
-                   if (!string.IsNullOrEmpty(vehiculoDto.Comentario) && !string.IsNullOrWhiteSpace(vehiculoDto.Comentario))
+            if (!string.IsNullOrEmpty(vehiculoDto.Comentario) && !string.IsNullOrWhiteSpace(vehiculoDto.Comentario))
             {
                 if (vehiculoDb.Comentario != vehiculoDto.Comentario)
                 {
                     vehiculoDb.Comentario = vehiculoDto.Comentario;
                 }
             }
+            if (!string.IsNullOrEmpty(vehiculoDto.Docs) && !string.IsNullOrWhiteSpace(vehiculoDto.Docs))
+            {
+                if (vehiculoDb.Docs != vehiculoDto.Docs)
+                {
+                    vehiculoDb.Docs = vehiculoDto.Docs;
+                }
+            }
 
+            if (vehiculoDto.Kmrecorridos.Equals(false))
+            {
+                if (vehiculoDb.KmRecorridos != vehiculoDto.Kmrecorridos)
+                {
+                    vehiculoDb.KmRecorridos = vehiculoDto.Kmrecorridos;
+                }
+            }
 
             if (vehiculoDto.FlotaId.HasValue)
             {
@@ -184,9 +205,9 @@ namespace LogicSolutionBackenProject.Controllers
             //3. try 
             try
             {
-                
+
                 await _context.SaveChangesAsync();
-               
+
             }
             catch (Exception ex)
             {
@@ -238,7 +259,9 @@ namespace LogicSolutionBackenProject.Controllers
                 FlotaId = vehiculo.FlotaId,
                 Img = vehiculo.Img,
                 Comentario = vehiculo.Comentario,
-                MapId = vehiculo.mapId
+                MapId = vehiculo.mapId,
+                Docs = vehiculo.Docs,
+                KmRecorridos = vehiculo.Kmrecorridos
 
             };
 

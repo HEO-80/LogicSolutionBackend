@@ -55,6 +55,9 @@ namespace LogicSolutionBackenProject.Controllers
         {
             var flota = await _context.flotas.FindAsync(id);
 
+
+            
+
             var vehiculos = await _context.vehiculos.Where(v => v.flota.Id == flota.Id).ToListAsync();
 
             var flotaDto = new FlotaDto
